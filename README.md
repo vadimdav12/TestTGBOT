@@ -16,8 +16,10 @@ tests/
 │   ├── test_receipt.py            # Б71-Б75
 │   ├── test_notification.py       # Б76-Б79
 │   └── test_utils.py              # Б80-Б82
-└── integration/                   # Интеграционные тесты (И1-И12)
-    └── test_integration.py
+├── integration/                   # Интеграционные тесты (И1-И12)
+│   └── test_integration.py
+└── load/                          # Нагрузочные тесты (Н1-Н10)
+    └── test_load.py
 ```
 
 ---
@@ -177,6 +179,23 @@ tests/
 
 ---
 
+## Нагрузочные тесты (Н1-Н10) — `test_load.py`
+
+| № | Тест | Описание |
+|---|------|----------|
+| Н1 | `test_h01_catalog_100_concurrent_requests` | 100 параллельных запросов к каталогу, время < 500ms |
+| Н2 | `test_h02_products_by_category_load` | 100 запросов к товарам категорий, RPS > 50 |
+| Н3 | `test_h03_cart_50_concurrent_users` | 50 пользователей добавляют товары одновременно |
+| Н4 | `test_h04_calc_totals_1000_times` | 1000 расчётов итогов корзины, среднее < 1ms |
+| Н5 | `test_h05_search_100_queries` | 100 параллельных поисковых запросов |
+| Н6 | `test_h06_fuzzy_search_50_queries` | 50 нечётких запросов с опечатками |
+| Н7 | `test_h07_promo_validation_200_requests` | 200 проверок промокодов |
+| Н8 | `test_h08_discount_calculation_100_carts` | 100 расчётов скидок для разных корзин |
+| Н9 | `test_h09_mixed_operations_200` | 200 смешанных операций, успешность ≥ 99% |
+| Н10 | `test_h10_sustained_load_2_seconds` | Устойчивая нагрузка 2 секунды, > 100 запросов |
+
+---
+
 ## Запуск тестов
 
 ```bash
@@ -188,6 +207,9 @@ pytest tests/unit/
 
 # Только интеграционные
 pytest tests/integration/
+
+# Только нагрузочные
+pytest tests/load/
 
 # Конкретный файл
 pytest tests/unit/test_cart.py
@@ -202,4 +224,3 @@ pytest tests/unit/test_cart.py::TestCartService::test_b15_get_cart_with_items
 pytest>=7.0.0
 pytest-asyncio>=0.21.0
 ```
-# TestTGBOT
